@@ -18,6 +18,7 @@ def getHrefFromWikipage():
         print("Le lien de la page actuelle est : " + soup.select("[rel='canonical']")[0]['href'])
 
         for a in soup.select('.mw-parser-output p a'):
+            # Ceci est une modification pour faire un test
             if any(s in a['href'] for s in ('edit', 'index.php', '#cite_note')):
                 print('-------- MAUVAIS LIEN DONC SUPPRIME --------')
             else:
