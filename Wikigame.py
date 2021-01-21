@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from tkinter import *
 import urllib.request
 import os
 import requests
@@ -19,6 +20,7 @@ pageDArrivee = 'https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard'
 
 def getHrefFromWikipage():
     listeDeLiens = []
+
     with urllib.request.urlopen(pageEnCours) as response:
         compteurDeLien = 0
         webpage = response.read()
@@ -38,16 +40,28 @@ def getHrefFromWikipage():
         nombreLiensAvantDoublon = len(listeDeLiens)
         listeDeLiens = list(dict.fromkeys(listeDeLiens))
 
+        fenetre = Tk()
+        fenetre.geometry("1000x700")
+
+        listbox = Listbox(fenetre, height = 500, width = 300 )
+        compteurBoucle = 0
+
         for b in listeDeLiens:
-            print(b)
+            # print(b)
+            compteurBoucle += 1
+            listbox.insert(compteurBoucle, b)
             compteurLiensBons += 1
 
+        listbox.pack()
+        fenetre.mainloop()
+
         print("---------------------------------")
-        print("Le nombre de bons liens est : " + str(compteurLiensBons))
-        print("Le nombre de mauvais liens est : " + str(compteurLienFaux))
-        print("---------------------------------")
-        print("Le nombre de doublons est : " + str(nombreLiensAvantDoublon - len(listeDeLiens)))
         print("Le total des liens est : " + str((compteurLiensBons + compteurLienFaux)))
+        print("Le nombre de bons liens est : " + str(compteurLiensBons))
+        print("---------------------------------")
+        print("Le nombre de mauvais liens est : " + str(compteurLienFaux))
+        print("Le nombre de doublons est : " + str(nombreLiensAvantDoublon - len(listeDeLiens)))
+
 
 with urllib.request.urlopen(pageDeDepart) as response:
 
