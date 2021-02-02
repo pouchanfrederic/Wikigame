@@ -3,13 +3,15 @@ from tkinter import *
 import urllib.request
 import os
 import requests
-clear = "\n" * 30
+
 clear = lambda: os.system('cls')
 jeuTermine = False
+
 print("Bienvenue dans le jeu de Wikipédia ! ")
 print("Le principe est simple, une page de départ et d'arrivée vont être tirée au sort")
 print("A vous d'y arriver le plus vite possible")
 print("Bonne chance !")
+
 pageDeDepart = ""
 pageDArrivee = ""
 pageEnCours = ""
@@ -18,50 +20,67 @@ compteur = 0
 pageDeDepart = 'https://fr.wikipedia.org/wiki/france'
 pageDArrivee = 'https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard'
 
+
+
+
 def getHrefFromWikipage():
     listeDeLiens = []
-
     with urllib.request.urlopen(pageEnCours) as response:
-        compteurDeLien = 0
         webpage = response.read()
         soup = BeautifulSoup(webpage, 'html.parser')
         print("La page actuelle est : " + soup.find('h1', class_='firstHeading').getText())
         print("Le lien de la page actuelle est : " + soup.select("[rel='canonical']")[0]['href'])
         compteurLiensBons = 0
         compteurLienFaux = 0
-        for a in soup.select('.mw-parser-output p a'):
-            if any(s in a['href'] for s in ('edit', 'index.php', '#cite_note', 'Citez_vos_sources', 'Ins%C3%A9rer')):
-                # print("Mauvais lien : " + 'https://fr.wikipedia.org/' + a['href'])
-                compteurLienFaux += 1
-            else:
-                # print('https://fr.wikipedia.org/' + a['href']
-                listeDeLiens.append('https://fr.wikipedia.org/' + a['href'])
+        if pageEnCours != pageDArrivee:
+            for a in soup.select('.mw-parser-output p a'):
+                if any(s in a['href'] for s in ('edit','index.php','#cite_note','Citez_vos_sources', 'Ins%C3%A9rer', 'donate')):
+                    # print("Mauvais lien : " + 'https://fr.wikipedia.org/' + a['href'])
+                    compteurLienFaux += 1
+                else:
+                    # print('https://fr.wikipedia.org/' + a['href']
+                    listeDeLiens.append('https://fr.wikipedia.org/' + a['href'])
 
-        nombreLiensAvantDoublon = len(listeDeLiens)
-        listeDeLiens = list(dict.fromkeys(listeDeLiens))
+            nombreLiensAvantDoublon = len(listeDeLiens)
+            listeDeLiens = list(dict.fromkeys(listeDeLiens))
 
-        fenetre = Tk()
-        fenetre.geometry("1000x700")
+            fenetre = Tk()
+            fenetre.geometry("600x600")
+            fenetre.title("Wikigame par Frédéric Pouchan")
+            
+            scrollbar = Scrollbar(fenetre, orient="vertical")
+            listbox = Listbox(fenetre, width=100, height=40, yscrollcommand=scrollbar.set)
+            
+            scrollbar.config(command=listbox.yview)
+            scrollbar.pack(side="right", fill="y")
+            
+            compteurBoucle = 0
 
-        listbox = Listbox(fenetre, height = 500, width = 300 )
-        compteurBoucle = 0
+            for b in listeDeLiens:
+                # print(b)
+                compteurBoucle += 1
+                listbox.insert(compteurBoucle, b)
+                compteurLiensBons += 1
 
-        for b in listeDeLiens:
-            # print(b)
-            compteurBoucle += 1
-            listbox.insert(compteurBoucle, b)
-            compteurLiensBons += 1
+            def submitButton():
+                selection = listbox.get(listbox.curselection())
+                print(selection)
+            submit = Button(fenetre, text='Submit', command=submitButton)
+            submit.pack()
+            listbox.pack()
 
-        listbox.pack()
-        fenetre.mainloop()
+            fenetre.mainloop()
 
-        print("---------------------------------")
-        print("Le total des liens est : " + str((compteurLiensBons + compteurLienFaux)))
-        print("Le nombre de bons liens est : " + str(compteurLiensBons))
-        print("---------------------------------")
-        print("Le nombre de mauvais liens est : " + str(compteurLienFaux))
-        print("Le nombre de doublons est : " + str(nombreLiensAvantDoublon - len(listeDeLiens)))
-
+            print("---------------------------------")
+            print("Le total des liens est : " + str((compteurLiensBons + compteurLienFaux)))
+            print("Le nombre de bons liens est : " + str(compteurLiensBons))
+            print("---------------------------------")
+            print("Le nombre de mauvais liens est : " + str(compteurLienFaux))
+            print("Le nombre de doublons est : " + str(nombreLiensAvantDoublon - len(listeDeLiens)))
+        else:
+            jeuTermine = True
+            return jeuTermine
+            print("Bravo vous avez terminé en seulement " & compteur & "coups")
 
 with urllib.request.urlopen(pageDeDepart) as response:
 
@@ -95,8 +114,7 @@ with urllib.request.urlopen(pageDArrivee) as response:
     print("---------------------------------------------------------------------------------------------------")
 
 
-# while jeuTermine:
+# while not jeuTermine:
 clear()
-print (clear)
 getHrefFromWikipage()
 compteur = compteur + 1
