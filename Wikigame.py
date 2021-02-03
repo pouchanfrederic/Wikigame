@@ -12,18 +12,13 @@ print("Le principe est simple, une page de départ et d'arrivée vont être tir�
 print("A vous d'y arriver le plus vite possible")
 print("Bonne chance !")
 
-pageDeDepart = ""
-pageDArrivee = ""
-pageEnCours = ""
 compteur = 0
 
 pageDeDepart = 'https://fr.wikipedia.org/wiki/france'
+pageEnCours = pageDeDepart
 pageDArrivee = 'https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard'
 
-
-
-
-def getHrefFromWikipage():
+def getHrefFromWikipage(self):
     listeDeLiens = []
     with urllib.request.urlopen(pageEnCours) as response:
         webpage = response.read()
@@ -64,7 +59,9 @@ def getHrefFromWikipage():
 
             def submitButton():
                 selection = listbox.get(listbox.curselection())
-                print(selection)
+                pageEnCours = selection
+                getHrefFromWikipage()
+
             submit = Button(fenetre, text='Submit', command=submitButton)
             submit.pack()
             listbox.pack()
@@ -82,39 +79,40 @@ def getHrefFromWikipage():
             return jeuTermine
             print("Bravo vous avez terminé en seulement " & compteur & "coups")
 
-with urllib.request.urlopen(pageDeDepart) as response:
+def initializeVariables(self):
+    with urllib.request.urlopen(pageDeDepart) as response:
 
-    webpage = response.read()
-    soup = BeautifulSoup(webpage, 'html.parser')
+        webpage = response.read()
+        soup = BeautifulSoup(webpage, 'html.parser')
 
-    pageDeDepart = soup.select("[rel='canonical']")[0]['href']
-    pageEnCours = pageDeDepart
+        pageDeDepart = soup.select("[rel='canonical']")[0]['href']
 
-    # container = soup.find_all("div", attrs={'class': 'mw-parser-output'})
-    # resumeParagrahe = container.find("p").getText()
-    # print(resumeParagrahe)
+        # container = soup.find_all("div", attrs={'class': 'mw-parser-output'})
+        # resumeParagrahe = container.find("p").getText()
+        # print(resumeParagrahe)
 
-    nomDeLaPageDeDepart = soup.find('h1', class_='firstHeading')
-    print("Vous commencez de la page : " + pageDeDepart)
-    print("Le nom de la page de départ est : " + nomDeLaPageDeDepart.getText())
+        nomDeLaPageDeDepart = soup.find('h1', class_='firstHeading')
+        print("Vous commencez de la page : " + pageDeDepart)
+        print("Le nom de la page de départ est : " + nomDeLaPageDeDepart.getText())
 
 
-with urllib.request.urlopen(pageDArrivee) as response:
-    webpage = response.read()
-    soup = BeautifulSoup(webpage, 'html.parser')
-    pageDArrivee = soup.select("[rel='canonical']")[0]['href']
+    with urllib.request.urlopen(pageDArrivee) as response:
+        webpage = response.read()
+        soup = BeautifulSoup(webpage, 'html.parser')
+        pageDArrivee = soup.select("[rel='canonical']")[0]['href']
 
-    # container2 = soup.find("div", attrs={'class': 'mw-parser-output'})
-    # resumeParagraphe2 = container2.find_all("p")
-    # print(resumeParagraphe2)
+        # container2 = soup.find("div", attrs={'class': 'mw-parser-output'})
+        # resumeParagraphe2 = container2.find_all("p")
+        # print(resumeParagraphe2)
 
-    nomDeLaPageDArrivee = soup.find('h1', class_='firstHeading')
-    print("Vous devez arriver à la page : " + pageDArrivee)
-    print("Le nom de la page d'arrivée est : " + nomDeLaPageDArrivee.getText())
-    print("---------------------------------------------------------------------------------------------------")
+        nomDeLaPageDArrivee = soup.find('h1', class_='firstHeading')
+        print("Vous devez arriver à la page : " + pageDArrivee)
+        print("Le nom de la page d'arrivée est : " + nomDeLaPageDArrivee.getText())
+        print("---------------------------------------------------------------------------------------------------")
 
 
 # while not jeuTermine:
+initializeVariables()
 clear()
 getHrefFromWikipage()
 compteur = compteur + 1
