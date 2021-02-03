@@ -18,7 +18,7 @@ pageDeDepart = 'https://fr.wikipedia.org/wiki/france'
 pageEnCours = pageDeDepart
 pageDArrivee = 'https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard'
 
-def getHrefFromWikipage(self):
+def getHrefFromWikipage():
     listeDeLiens = []
     with urllib.request.urlopen(pageEnCours) as response:
         webpage = response.read()
@@ -58,6 +58,7 @@ def getHrefFromWikipage(self):
                 compteurLiensBons += 1
 
             def submitButton():
+                global pageEnCours
                 selection = listbox.get(listbox.curselection())
                 pageEnCours = selection
                 getHrefFromWikipage()
@@ -79,7 +80,11 @@ def getHrefFromWikipage(self):
             return jeuTermine
             print("Bravo vous avez terminé en seulement " & compteur & "coups")
 
-def initializeVariables(self):
+def initializeVariables():
+    global pageDeDepart
+    global pageDArrivee
+    global pageEnCours
+    
     with urllib.request.urlopen(pageDeDepart) as response:
 
         webpage = response.read()
