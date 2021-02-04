@@ -7,10 +7,10 @@ jeuTermine = False
 # print("A vous d'y arriver le plus vite possible")
 # print("Bonne chance !")
 
-initializeVariables()
-
-
 game = Wikigame()
+initializeVariables(game.getPageDeDepart, game.getPageDArrivee)
 
-# TODO LA CONDITION DE VICTOIRE N'ARRIVERA JAMAIS 
+
+
+
 
