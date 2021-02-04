@@ -1,4 +1,4 @@
-from Wikigame import Wikigame
+from Wikigame import *
 from utils import *
 jeuTermine = False
 
@@ -7,9 +7,10 @@ jeuTermine = False
 # print("A vous d'y arriver le plus vite possible")
 # print("Bonne chance !")
 
-game = Wikigame()
-initializeVariables(game.getPageDeDepart, game.getPageDArrivee)
+fenetre = Tk()
 
+game = Wikigame(fenetre)
+fenetre.mainloop()
 
 
 

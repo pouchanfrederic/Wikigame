@@ -43,7 +43,7 @@ def getLinksFromUrl(url):
         print("Le lien de la page actuelle est : " + soup.select("[rel='canonical']")[0]['href'])
         
         for a in soup.select('.mw-parser-output p a'):
-            if any(s in a['href'] for s in ('edit','index.php','#cite_note','Citez_vos_sources', 'Ins%C3%A9rer', 'donate', 'API_')):
+            if any(s in a['href'] for s in ('edit','index.php','#cite_note','Citez_vos_sources', 'Ins%C3%A9rer', 'donate', 'API_', 'Aide')):
                 b = 2
             else:
                 listeDeLiens.append('https://fr.wikipedia.org' + a['href'])

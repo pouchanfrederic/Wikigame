@@ -6,14 +6,14 @@ clear = lambda: os.system('cls')
 
 class Wikigame:
 
-    def __init__(self):
+    def __init__(self, fenetre):
         self.pageDeDepart = 'https://fr.wikipedia.org/wiki/france'
         self.pageDArrivee = 'https://fr.wikipedia.org/wiki/guyane'
 
         # self.pageDeDepart = 'https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard'
         # self.pageDArrivee = 'https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard'
 
-        self.fenetre = Tk()
+        self.fenetre = fenetre
         self.fenetre.geometry("600x600")
         self.fenetre.title("Wikigame par Frédéric Pouchan")
 
@@ -48,7 +48,7 @@ class Wikigame:
 
         self.initializeWindow()
 
-        self.fenetre.mainloop()
+
 
     def initializeWindow(self):
         listeDeLiens = getLinksFromUrl(self.url)  # Tous les liens de page liée à l'url donnée en paramètre
