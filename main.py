@@ -1,4 +1,4 @@
-from tata import Wikigame
+from Wikigame import Wikigame
 from utils import *
 jeuTermine = False
 

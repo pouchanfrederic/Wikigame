@@ -7,7 +7,9 @@ compteurBoucle = 0
 listeDeLiens = ''
 pageDeDepart = 'https://fr.wikipedia.org/wiki/france'
 url = pageDeDepart
-pageDArrivee = 'https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard'
+# pageDArrivee = 'https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard'
+pageDArrivee = 'https://fr.wikipedia.org/wiki/Guyane'
+
 
 def getLinksFromUrl(url):
     global compteur
@@ -24,13 +26,12 @@ def getLinksFromUrl(url):
                 if any(s in a['href'] for s in ('edit','index.php','#cite_note','Citez_vos_sources', 'Ins%C3%A9rer', 'donate', 'API_')):
                     compteurLienFaux += 1
                 else:
-                    listeDeLiens.append('https://fr.wikipedia.org/' + a['href'])
+                    listeDeLiens.append('https://fr.wikipedia.org' + a['href'])
             listeDeLiens = list(dict.fromkeys(listeDeLiens))
             return listeDeLiens
         else:
-            jeuTermine = True
-            print("Bravo vous avez terminé en seulement " & compteur & "coups")
-            return jeuTermine
+            print("Bravo vous avez terminé en seulement " + str(compteur) + "coups")
+            return []
 
 def initializeVariables():
     global pageDeDepart
