@@ -16,5 +16,6 @@ fenetre.mainloop()
 #TODO Faire en sorte que les accents fonctionnent à l'afficage urllib quote et unquote (avec un parse avant et apres)
 #TODO Faire en sorte que ça ne soit pas les liens qui s'affichent mais
 #les résumés
+#TODO Ajouter une erreur si jamais la page est vide et revenir à la page précédente
 
 

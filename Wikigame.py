@@ -36,7 +36,7 @@ class Wikigame:
         self.scrollbar.config(command=self.listbox.yview)
         self.scrollbar.pack(side="right", fill="y")
 
-        self.submit = Button(self.fenetre, text='Submit', command=self.updateWindow)
+        self.submit = Button(self.fenetre, text='Valider', command=self.updateWindow)
         self.submit.pack()
 
         self.listbox.pack()
