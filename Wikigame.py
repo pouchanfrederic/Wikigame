@@ -70,7 +70,7 @@ class Wikigame:
             self.labelUrl['text'] = "Page en cours : " + self.selection
             self.listbox.delete(0, 'end')
 
-            listeDeLiens = getLinksFromUrl(self.selection)
+            listeDeLiens = getLinksFromUrl(("https://fr.wikipedia.org"+ self.selection))
 
             compteurBoucle = 0
             for lien in listeDeLiens:

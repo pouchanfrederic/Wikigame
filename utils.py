@@ -46,7 +46,8 @@ def getLinksFromUrl(url):
             if any(s in a['href'] for s in ('edit','index.php','#cite_note','Citez_vos_sources', 'Ins%C3%A9rer', 'donate', 'API_', 'Aide')):
                 b = 2
             else:
-                listeDeLiens.append('https://fr.wikipedia.org' + a['href'])
+                listeDeLiens.append(a['href'])
+                # listeDeLiens.append('https://fr.wikipedia.org' + a['href'])
         listeDeLiens = list(dict.fromkeys(listeDeLiens))
         return listeDeLiens
         
