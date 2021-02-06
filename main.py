@@ -12,6 +12,9 @@ fenetre = Tk()
 game = Wikigame(fenetre)
 fenetre.mainloop()
 
-
+#TODO Mettre un message au début et à la fin du jeu
+#TODO Faire en sorte que les accents fonctionnent à l'afficage urllib quote et unquote (avec un parse avant et apres)
+#TODO Faire en sorte que ça ne soit pas les liens qui s'affichent mais
+#les résumés
 
 

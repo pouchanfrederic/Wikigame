@@ -55,6 +55,7 @@ class Wikigame:
         compteurBoucle = 0
         for lien in listeDeLiens:
             compteurBoucle += 1
+            lien = lien.removeprefix("/wiki/")
             self.listbox.insert(compteurBoucle, lien)
 
     def updateWindow(self):
@@ -63,26 +64,27 @@ class Wikigame:
         if len(test) == 0:
             return
         self.selection = self.listbox.get(self.listbox.curselection())
-        if self.selection != self.pageDArrivee:
-
+        
+        if ("https://fr.wikipedia.org" + self.selection) != self.pageDArrivee:
             self.compteur += 1
-            self.labelCompteur['text'] = "Compteur de coups : " + str(self.compteur)
-            self.labelUrl['text'] = "Page en cours : " + self.selection
-            self.listbox.delete(0, 'end')
+            
+            self.labelCompteur['text'] = "Compteur de coups : " + str(self.compteur) #Actualisation de l'affiage du compteur dans l'ihm
+            self.labelUrl['text'] = "Page en cours : " + self.selection #Actualiasation de l'affichage de la page en cours dans l'ihm
+            self.listbox.delete(0, 'end') #Suppression des liens dans la liste box
 
-            listeDeLiens = getLinksFromUrl(("https://fr.wikipedia.org"+ self.selection))
+            listeDeLiens = getLinksFromUrl(("https://fr.wikipedia.org/wiki/"+ urllib.parse.quote(self.selection)))
 
             compteurBoucle = 0
             for lien in listeDeLiens:
                 compteurBoucle += 1
+                lien = lien.removeprefix("/wiki/")
                 self.listbox.insert(compteurBoucle, lien)
         else:
             print("Bravo vous avez terminé en seulement " + str(self.compteur) + "coups")
-
-        # self.listbox.pack()
 
     def getPageDeDepart(self):
         return self.pageDeDepart
 
     def getPageDArrivee(self):
         return self.pageDArrivee
+
