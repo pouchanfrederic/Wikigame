@@ -26,7 +26,7 @@ class Wikigame:
         self.labelCompteur = Label(self.fenetre, text=("Compteur de coups : " + str(self.compteur)))
         self.labelCompteur.pack()
 
-        self.labelUrl = Label(self.fenetre, text=("Page en cours : " + self.url))
+        self.labelUrl = Label(self.fenetre, text=("Page en cours : " + urllib.parse.unquote(self.url.removeprefix("https://fr.wikipedia.org/wiki/"))))
         self.labelUrl.pack()
 
         self.label = Label(self.fenetre, text=("Objectif : " + urllib.parse.unquote(self.pageDArrivee.removeprefix("https://fr.wikipedia.org/wiki/"))))
