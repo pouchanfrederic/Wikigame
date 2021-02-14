@@ -5,7 +5,7 @@ Le principe est simple, l'application génère aléatoirement une page de dépar
 Le but est de se rendre sur la page d'arrivée le plus rapidement possible.
 Amusez-vous bien ! 
 
-# Libraires utilisées : 
+# Librairies utilisées : 
 - urllib
 - BeautifulSoup (pour l'installer : pip install beautifulsoup4)
 - utils
