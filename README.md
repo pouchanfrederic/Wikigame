@@ -10,3 +10,9 @@ Amusez-vous bien !
 - BeautifulSoup (pour l'installer : pip install beautifulsoup4)
 - utils
 - tkinter
+
+# Fonctionnalités : 
+- Tri de liens intelligent (Pas de doublons, ni de liens indésirables).
+- Si la page de départ ne contient pas de lien, un nouveau est générée automatiquement.
+- Si la page sélectionnée par l'utilisateur est vide, l'application ne s'actualise pas, pour que celui-ci ne se retrouve pas bloqué.
+- Le jeu compte le nombre de coup jusqu'à atteindre la "ligne d'arrivée"
